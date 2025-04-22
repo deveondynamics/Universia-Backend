@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, get_user_model
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.parsers import MultiPartParser, FormParser
-from .serializers import RegisterSerializer, UserProfileSerializer
+from .serializers import RegisterSerializer, UserProfileSerializer, UserSerializer
 from .models import UserProfile
 from django.db.models import Q
 
@@ -51,6 +51,14 @@ class LoginView(APIView):
                 return Response({'token': token.key}, status=status.HTTP_200_OK)
         
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
+
+class UserView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request):
+        """Get the authenticated user's information"""
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)
 
 class UserProfileView(APIView):
     permission_classes = [IsAuthenticated]

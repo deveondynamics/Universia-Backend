@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.urls import path
-from accounts.views import RegisterView, LoginView, UserProfileView
+from accounts.views import RegisterView, LoginView, UserProfileView, UserView
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -9,6 +9,7 @@ urlpatterns = [
     path('api/register/', RegisterView.as_view()),
     path('api/login/', LoginView.as_view()),
     path('api/profile/', UserProfileView.as_view()),
+    path('api/user/', UserView.as_view()),
 ]
 
 # Add this to handle media files in development

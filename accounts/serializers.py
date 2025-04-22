@@ -31,6 +31,17 @@ class RegisterSerializer(serializers.ModelSerializer):
         UserProfile.objects.create(user=user)
         return user
 
+class UserSerializer(serializers.ModelSerializer):
+    """Serializer for the User model"""
+    
+    class Meta:
+        model = User
+        fields = (
+            'id', 'username', 'email', 'first_name', 'last_name', 
+            'date_of_birth', 'gender', 'academic_status', 'date_joined'
+        )
+        read_only_fields = ('id', 'date_joined')
+
 class UserProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
